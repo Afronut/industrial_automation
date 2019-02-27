@@ -1,0 +1,84 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pythontex}
+\usepackage[siunitx]{circuitikz}
+\usepackage{xcolor}
+\usepackage[inline]{enumitem}
+\usepackage{booktabs}
+\usepackage{relsize}
+\usepackage{calculator}
+\usepackage{siunitx}
+\usepackage{tikz}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{MCEN 5228-004}
+\newcommand\Homework{1}                  % <-- homework number
+\newcommand\NetIDa{Coovi Meha}           % <-- NetID of person #1
+\newcommand\NetIDb{MEid:481-473}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa}
+\lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \Homework}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+\begin{document}
+\begin{pycode}
+\end{pycode}
+\section{Problem  Statement}
+Find the synthesis equation \(C_k\) of the following fourier serie:\\
+The sampling property of  \(\delta(t)\) is: \\
+\begin{equation}
+    \int_{-\infty}^{\infty} f(t)\delta(t-a) dt = f(a)
+\end{equation}
+\begin{figure}[h]
+    \begin{tikzpicture}
+        \draw  (0,0) -- (14, 0); 
+        \draw [thick,->](1,0)node[anchor = north west]{\(-4T_{0}\)} -- (1,4.5);
+        \draw [thick,->](3,0) node[anchor = north west]{\(-3T_{0}\)}-- (3,4.5);
+        \draw [thick,->](5,0) node[anchor = north west]{\(-2T_{0}\)}-- (5,4.5);
+        \draw [thick,->](7,0) node[anchor = north west]{\(T_0\)} -- (7,4.5);
+        \draw [thick,->](9,0) node[anchor = north west]{\(2T_0\)}-- (9,4.5);
+        \draw [thick,->](11,0) node[anchor = north west]{\(3T_0\)}-- (11,4.5);
+        \draw [thick,->](13,0) node[anchor = north west]{\(4T_0\)}-- (13,4.5);
+    \end{tikzpicture}
+    \caption{Representation of \(\delta_{T_0}(t)\)}
+\end{figure}
+\section{Solution}
+    \(f(t)= \sum_{-\infty}^{\infty}  A\delta(t-mT_0)\)\\
+     \(f(t)=  A\delta(t)\) by replacing this into (1) we get the following equation
+     \begin{equation}
+        f(a)= \int_{-\infty}^{\infty}  A\delta(t)\delta(t-a) dt
+    \end{equation}
+         \(f(a)= \int_{-\infty}^{\infty}  A\delta(t)\delta(t-a)\) \\
+    \begin{equation}
+        C_k = \frac{1}{T_0} \int_{\frac{-T_0}{2}}^{\frac{T_0}{2}} f(t) e^{-jw_0t} 
+    \end{equation}
+ with \(e^{-jw_0t}=1\) we can conclude that \(C_k=\frac{1}{T_0}f(a)\)\\
+ replace f(a) into this equatio  yeild\\
+ \begin{equation}
+     C_k= \frac{1}{T_0}\int_{-\infty}^{\infty}  A\delta(t)\delta(t-a) dt
+ \end{equation}
+ The integral is zero ouside the interval of \(-T_0\) and \(T_0\), thus
+ \begin{equation}
+    C_k= \frac{1}{T_0}\int_{\frac{-T_0}{2}}^{\frac{T_0}{2}}  A\delta(t)\delta(t-a) dt
+\end{equation}
+The area under any impulse signal is always zero. therefore we have 
+\begin{equation}
+    C_k= \frac{A}{T_0}
+\end{equation}
+\end{document}
+

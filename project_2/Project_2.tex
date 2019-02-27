@@ -202,6 +202,20 @@ The both have an overshot of 0.1. The inconsistency between the 1 ms, 10 ms and 
 could be due to the resoluton of the data point. As we increase the wait time of the loop,
 the recorded data point a less and therefore has lower resolution on plot.
 \section*{Conclusion}
-The new 
+The experimental and theoretical results in this lab show similarities. We obtained
+the almost the same gain with a error of les than 0.5 percent. The can conclude that 
+our circuit is reliable on the standard of matching the theoretical result with a proportional 
+controller of k=1 and a sampling period of 1 ms. The difference in the data 
+of the 1 ms and the 10, 100 ms are not explicitly known. We believe it could
+be due to the change in the sampling frequency with should impact
+the MyRIo sampling ability. \\
+Our system is robust. The sta of the system can be confirmed from the Nyquest and root locus
+plot.  It was found that, for any value of k, the system will always stay 
+stable. However, the limitation in hardware that will be used should be taken 
+into consideration\\
+It is important to note that though we have a feedback back loop, hour system has gain of  1/3
+with an input of 1 which is not desirable because of the huge error. It can be concluded that 
+a proportional controller is not the best fit for this kind of circuit 
+even though a feedback is used when minimizing error is critical.
 \end{document}
 
