@@ -8,17 +8,22 @@
 \usepackage{hyperref}
 \usepackage{pythontex}
 \usepackage[siunitx]{circuitikz}
-\usepackage{xcolor}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
 \usepackage[inline]{enumitem}
 \usepackage{booktabs}
 \usepackage{relsize}
 \usepackage{calculator}
 \usepackage{siunitx}
+\usepackage{appendix}
+\usepackage{listings}
 
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{0.05in}
 
 % Edit these as appropriate
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
 \newcommand\course{MCEN 5228-004}
 \newcommand\project{2}                  % <-- homework number
 \newcommand\NetIDa{Coovi Meha}           % <-- NetID of person #1
@@ -53,16 +58,17 @@ This experiment used an RRC circuit as showed bellow.
 \begin{figure}[h]
     \begin{center}
         \begin{circuitikz}\draw
-            (0,0) to[battery, color=red] (0,4) 
-            to[R=5.1<k\ohm>] (4,4) to [R=5.1<k\ohm>] (4,0)
-            --(0,0) 
-            (4,4) -- (6,4) to[capacitor, C=2.2<\micro\farad>, color=blue] (6,0) 
+            (0,0) to[V,v=$U_q$, color=red] (0,4) 
+            to[R, l=$R_1$,a=5.1<\kilo\ohm>] (4,4) to [R, l=$R_1$,a=5.1<\kilo\ohm>] (4,0)
+            --(0,0)
+            (4,4) -- (7,4) to[capacitor,C=$C$<,a=2.2<\micro\farad>, color=blue] (7,0) 
             -- (4,0) 
             (6,4)  to[short,-*] (8,4) 
             (8,0) to[open, v=${V_out}$, color=red] (8,4) 
             (6,0)  to[short,-*] (8,0) ;
         \end{circuitikz}
-        \caption{RRC Circuit}
+        \caption{RRC Circuit used during the experiment. The resistors have the same value. The measure
+        voltage is across the capacitor}
         \end{center}
 \end{figure}
 we were interested in measuring the voltage crossing the capacitor and the resistor in parallel.
@@ -76,14 +82,14 @@ The system was fed with two difference signals:
 \section*{Experiment Set-up}
 Using MyRio, we connected the analog input the pin AI0 and the output
 to pin AO1. The feedback was completed by subtracting the input signal
-from output and feeding it the system as show by the figure bellow.\\
+from output and feeding it to the system as show by the figure bellow.\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=10cm]{Capture.png}
     \caption{Experimental plot of step input of 1 volt to an RRC circuit.}
 \end{figure}
 
-The MyRIo integrated to the circuit is showed bellow. MyRio analog input need 
+The MyRio integrated to the circuit is showed bellow. MyRio analog input need 
 a reference voltage to be able to read the correct input data. Thus, we connected
 the +1 pin to the high voltage coming in the device and the -1 to ground.
 \begin{figure}[h]
@@ -137,7 +143,7 @@ the +1 pin to the high voltage coming in the device and the -1 to ground.
     From the plot and Matlab, the gain of the system is 1/3 voltage with a rise time of
     about 0.0082; a pretty fast response time.
     \item Bode plot\\
-    The bode plot showed that the system is a low pass filter
+    The bode plot showed that the system is a low pass filter.
     \begin{figure}[h]
         \centering
         \includegraphics[width=15cm]{bode.jpg}
@@ -145,15 +151,15 @@ the +1 pin to the high voltage coming in the device and the -1 to ground.
     \end{figure}
     The cut off frequency of the system is Wn=100 rad/s. The system can 
     perform steadily at frequency bellow the cuf of frequency with a constant phase shift 
-    of about 90 degrees. From the open loop analysis  of the system, i was found that the 
-    gain margin and the phase margin of the system are infinity respectively.
+    of about 90 degrees. From the open loop analysis  of the system, it was found that the 
+    gain margin and the phase margin of the system are both infinity using Matlab.
     \item Nyquest Plot\\
     \begin{figure}[h]
         \centering
         \includegraphics[width=15cm]{nyq.jpg}
         \caption{Nyquest plot of the system using Matlab. The data points are far from the instability point -1 }
     \end{figure}\\
-    From the i mage above, our system is stable at pole. The system has not zeros. 
+    From the image above, our system is stable at pole. The system has not zeros. 
     In addition, the system is also robust as -1 is not encircle and any root on the 
     Nyquest plot is far at safe distance from the -1. 
     \item Root Locus\\
@@ -178,7 +184,7 @@ in the figure below.\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=15cm]{expstepin.jpg}
-    \caption{Root locus plot using Matlab.}
+    \caption{Experimental result of the system using 1 ms sampling rate.}
 \end{figure}\\
 The gain of the experimental system is .334; a percent of error of
 0.3 percent that can be neglected and associated tolerance
@@ -190,32 +196,53 @@ wait time plot below shows a difference pattern to the 1 ms plot.\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=15cm]{expstepin10.jpg}
-    \caption{Root locus plot using Matlab.}
+    \caption{Experimental result of the system using 10 ms sampling rate.}
 \end{figure}\\
 In addition, the plot of the 100 ms below is similar to the the 10ms.\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=15cm]{expstepin100.jpg}
-    \caption{Root locus plot using Matlab.}
+    \caption{Experimental result of the system using 100 ms sampling rate.}
 \end{figure}\\
 The both have an overshot of 0.1. The inconsistency between the 1 ms, 10 ms and 100 ms 
 could be due to the resoluton of the data point. As we increase the wait time of the loop,
 the recorded data point a less and therefore has lower resolution on plot.
 \section*{Conclusion}
 The experimental and theoretical results in this lab show similarities. We obtained
-the almost the same gain with a error of les than 0.5 percent. The can conclude that 
+almost the same gain with an error of less than 0.5 percent. It could be  concluded that 
 our circuit is reliable on the standard of matching the theoretical result with a proportional 
 controller of k=1 and a sampling period of 1 ms. The difference in the data 
 of the 1 ms and the 10, 100 ms are not explicitly known. We believe it could
 be due to the change in the sampling frequency with should impact
 the MyRIo sampling ability. \\
-Our system is robust. The sta of the system can be confirmed from the Nyquest and root locus
+Our system is robust. The stability of the system can be confirmed from the Nyquest and root locus
 plot.  It was found that, for any value of k, the system will always stay 
-stable. However, the limitation in hardware that will be used should be taken 
-into consideration\\
-It is important to note that though we have a feedback back loop, hour system has gain of  1/3
-with an input of 1 which is not desirable because of the huge error. It can be concluded that 
+stable. However, the limitation in hardware should be taken 
+into consideration while designing such system\\
+It is important to note that though we have a feedback back loop, our system has gain of  1/3
+with an input of 1 volt, which is not desirable because of the huge error. It can be concluded that 
 a proportional controller is not the best fit for this kind of circuit 
 even though a feedback is used when minimizing error is critical.
-\end{document}
+\appendix
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
 
+
+\section*{Matlab Code}
+
+\lstinputlisting{project2.m}
+\end{document}

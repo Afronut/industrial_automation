@@ -1,12 +1,12 @@
-=>PYTHONTEX#py#default#default#0#code#####38#
+=>PYTHONTEX#py#default#default#0#code#####43#
 R=5100
 C=2.2*10**-6
 tau=2/(R*C)
 tau1=0.5*tau
 omega=tau**0.5
-=>PYTHONTEX#py#default#default#1#i#####114#
+=>PYTHONTEX#py#default#default#1#i#####120#
 round(tau1,2)
-=>PYTHONTEX#py#default#default#2#i#####114#
+=>PYTHONTEX#py#default#default#2#i#####120#
 round(tau,2)
 =>PYTHONTEX:SETTINGS#
 version=0.16
